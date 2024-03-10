@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://vo6u4882uvj1"]
+
+[ext_resource type="PackedScene" uid="uid://c8rwekb8g12oq" path="res://Characters/player_cat.tscn" id="1_5frsa"]
+[ext_resource type="Texture2D" uid="uid://itqpxxclnid" path="res://art/starry-night-sky.jpg" id="2_pcp1h"]
+
+[node name="GameScene" type="Node2D"]
+position = Vector2(273, 119)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(349, 212)
+scale = Vector2(0.282, 0.282)
+texture = ExtResource("2_pcp1h")
+
+[node name="PlayerCat" parent="." instance=ExtResource("1_5frsa")]
+position = Vector2(1, -1)
