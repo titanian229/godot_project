@@ -1,11 +1,127 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8rwekb8g12oq"]
+[gd_scene load_steps=19 format=3 uid="uid://c8rwekb8g12oq"]
 
 [ext_resource type="Texture2D" uid="uid://dysgnfiqa40fh" path="res://art/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_gqfsr"]
 [ext_resource type="Script" path="res://Characters/player_cat.gd" id="1_mly6s"]
 [ext_resource type="Texture2D" uid="uid://blnmv5shsnxbl" path="res://art/cat2.png" id="3_2uaq8"]
+[ext_resource type="Texture2D" uid="uid://c54jvv326ksaj" path="res://art/ship_spritesheet.png" id="4_ib61o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7f5on"]
-size = Vector2(15, 6.5)
+size = Vector2(28.5, 13.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2pp11"]
+size = Vector2(5, 2)
+
+[sub_resource type="Animation" id="Animation_dkiuh"]
+resource_name = "left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CuteShip:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k442g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CuteShip:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_84wqo"]
+resource_name = "right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CuteShip:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_ad2dq"]
+resource_name = "slight_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CuteShip:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_fih0y"]
+resource_name = "slight_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CuteShip:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ray1n"]
+_data = {
+"RESET": SubResource("Animation_k442g"),
+"left": SubResource("Animation_dkiuh"),
+"right": SubResource("Animation_84wqo"),
+"slight_left": SubResource("Animation_ad2dq"),
+"slight_right": SubResource("Animation_fih0y")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f4cn5"]
+animation = &"left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6c0s1"]
+animation = &"right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g1ohh"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_crtgu"]
+animation = &"slight_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l7au1"]
+animation = &"slight_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7x0a5"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_f4cn5")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_6c0s1")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_g1ohh")
+blend_point_2/pos = 0.0
+blend_point_3/node = SubResource("AnimationNodeAnimation_crtgu")
+blend_point_3/pos = -0.5
+blend_point_4/node = SubResource("AnimationNodeAnimation_l7au1")
+blend_point_4/pos = 0.5
+blend_mode = 1
 
 [node name="PlayerCat" type="CharacterBody2D"]
 position = Vector2(51, 65)
@@ -18,11 +134,38 @@ hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.25)
+visible = false
+position = Vector2(0.75, -0.375)
 shape = SubResource("RectangleShape2D_7f5on")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(9.53674e-07, 6)
+visible = false
+position = Vector2(0, 1)
 rotation = -2.28464
 scale = Vector2(0.02962, 0.02962)
 texture = ExtResource("3_2uaq8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-15.5, -1)
+shape = SubResource("RectangleShape2D_2pp11")
+
+[node name="CuteShip" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("4_ib61o")
+hframes = 5
+vframes = 2
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ray1n")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ray1n")
+}
+tree_root = SubResource("AnimationNodeBlendSpace1D_7x0a5")
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = 0.0
