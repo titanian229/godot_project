@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://4wo3d60joqn5"]
+[gd_scene load_steps=7 format=3 uid="uid://4wo3d60joqn5"]
 
 [ext_resource type="Texture2D" uid="uid://danthd2kntop1" path="res://art/3230207578.png" id="1_0t8ab"]
+[ext_resource type="Script" path="res://planet.gd" id="1_05iyv"]
+[ext_resource type="Script" path="res://PlanetSprite.gd" id="2_4idis"]
 
 [sub_resource type="Animation" id="Animation_a784t"]
 resource_name = "rotate_planet"
@@ -28,11 +30,14 @@ _data = {
 radius = 50.1597
 
 [node name="Planet" type="CharacterBody2D"]
+script = ExtResource("1_05iyv")
+initial_velocity = Vector2(5, 0)
 
 [node name="PlanetSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_0t8ab")
 hframes = 50
-frame = 26
+frame = 2
+script = ExtResource("2_4idis")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
